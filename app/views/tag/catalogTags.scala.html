@@ -1,0 +1,29 @@
+@(catalog: List[Item])
+
+@dashboard("Print Tag for the catalog") {
+    <div class='tag-container'>
+            <div class='tags' id="ctags">
+                <a class='blue-btn print' onclick="printDiv('ctags')">Print</a>
+                <a class='red-btn' href='/tag'>Back</a>
+                <br><br>
+                @for(item <- catalog) {
+                <div>
+                    <span>#@item.getItemId()</span>
+                    <span>@item.getTitle()</span>
+                    <span>$@item.getPrice()</span>
+                </div>
+                <span>@item.getDescription()</span>
+                }
+            </div>
+    </div>
+
+    <script>
+            function printDiv(ctags) {
+                var printContents = document.getElementById(ctags).innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
+    </script>
+}

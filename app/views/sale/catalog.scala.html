@@ -1,0 +1,142 @@
+@(sale: Sale)(items: List[Item])
+
+@dashboard("Browse catalog") {
+
+<div class='listing'>
+    
+    <div>
+        <h1>@sale.getTitle()</h1>
+        <a href='/user' class='red-btn'>Back</a>
+    </div>
+        
+    @if(sale.getSellerId().equals(session.get("username"))) {
+        <span class='blue-btn' id='add-catalog-item'>Add Item</span>
+    }
+    @if(sale.getAdminId().equals(session.get("username"))) {
+        <span class='grey-btn' id='close-sale'>Close Sale</span>
+    }
+    
+    <input type='text' id='search-item' placeholder="Search for an item ... ">
+    
+    <ul>
+        @for(entry <- items) {
+            <li class='list-item-container' onclick="window.location.href = '/item/' + @entry.getItemId()">
+                @if(entry.getImage() != null) {
+                    <div class='list-item-pic' style='background-image: url(/item/img/@entry.getItemId())'></div>
+                } else {
+                    <div class='list-item-img'>No Image Yet</div>
+                }
+                <div class='list-item-description'>
+                    <span class='list-item-title'>@entry.getTitle()</span>
+                    <span>$@entry.getPrice()</span>
+                    <span>@entry.getDescription()</span>
+                    <span>
+                        <span>@entry.getStock() left in stock</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span>ID: @entry.getItemId()</span>
+                    </span>
+                </div>
+            </li>
+        }
+    </ul>
+
+</div>
+
+<div id='confirmation'>
+    <span>Are you sure?</span>
+    <div>
+        <span class='red-btn' id='confirm-close'>Yes</span>
+        <span class='grey-btn' id='dismiss'>No</span>
+    </div>
+</div>
+
+<script>
+    //show and hide the add catalog item modal
+    $("#add-catalog-item").click(function() {
+        $("#add-item-modal").addClass("show");
+    });
+    $('#hide-modal-b').click(function() {
+        $("#add-item-modal").removeClass("show");
+        $("#add-item-msg").text("");
+    });
+    
+    //send add catalog item request to the server
+    $("#add-item").click(function() {
+        var formData = new FormData();
+        var inputFile = document.getElementById('img-input-b').files[0];
+        formData.append('file', inputFile);
+        $('.item-info').map(function() {
+            formData.append($(this).attr("name"), $(this).val());
+        });
+        formData.append("saleId", @sale.getSaleId());
+        if (!formData.get('title').length || 
+            !formData.get('description').length || 
+            !formData.get('price').length || 
+            !formData.get('stock').length) {
+            $("#add-item-msg").text("Please complete all the fields.");
+        } else if (isNaN(formData.get('price')) || 
+                 formData.get('price') < 0 || 
+                 !Number.isInteger(parseInt(formData.get('stock'))) || 
+                 formData.get('stock') < 0) {
+            $("#add-item-msg").text("Please enter valid price/stock.");
+        } else $.ajax({
+            url: '/item',
+            type: "POST",
+            contentType: false,
+            data: formData,
+            processData: false,
+            success: function(data, status) {
+                $("#add-item-modal").removeClass("show");
+                location.reload();
+            },
+            error: function() {
+                console.log("Error occurs. Please try again.")
+            }
+        });
+    });
+    
+    //show image after uploading
+    $("#img-input-b").change(function() {
+        var file = document.getElementById("img-input-b").files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            $('#item-img').css("background-image", "url(" + reader.result + ")");
+        }
+        if (file) reader.readAsDataURL(file);
+        else return;
+    });
+    
+    //implement search item
+    $("#search-item").change(function() {
+        var $content = $(this).val().toLowerCase();
+        $(".list-item-container").each(function() {
+            $(this).toggle(!$content.length || $(".list-item-title", this).text().toLowerCase().includes($content));
+        });
+    });
+    
+    //display/hide close sale confirmation modal
+    $('#close-sale').click(function() {
+        $('#layer').show();
+        $('#confirmation').addClass('show');
+    });
+    $('#dismiss').click(function() {
+        $('#layer').hide();
+        $('#confirmation').removeClass('show');        
+    });
+    
+    //send close sale request to server
+    $("#confirm-close").click(function() {
+        $.ajax({
+            url: '/sale/@sale.getSaleId()',
+            type: 'DELETE',
+            success: function(data, status) {
+                window.location.href = '/user';
+            },
+            error: function() {
+                console.log("Error occurs. Please try again.");
+            }
+        });
+    });
+</script>
+
+}

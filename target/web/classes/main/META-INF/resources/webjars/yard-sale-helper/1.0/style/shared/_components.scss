@@ -1,0 +1,184 @@
+.blue-btn {
+    @include buttonlink($blue-ivy);
+    display: inline-block;
+    margin-top: 2em;
+}
+.red-btn {
+    @extend .blue-btn;
+    @include buttonlink($light-red);
+}
+.grey-btn {
+    @extend .blue-btn;
+    @include buttonlink($light-grey);
+}
+.modal {
+    @include center;
+    visibility: collapse;
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.modal.show {
+    visibility: visible;
+}
+.modal-content {
+    @include font;
+    display: flex;
+    flex-direction: column;
+    background-color: $pale-grey;
+    box-shadow: 0 0 1em $blue-grey;
+    input[type=text] {
+        @include font;
+        padding: 0.25em;
+        height: 1.2em;
+        width: 20em;
+    }
+    .label {
+        display: inline-block;
+        width: 7.5em;
+    }
+    .label.short {
+        width: 2.5em;
+    }
+}
+.modal-img-upload {
+    @include center;
+    margin-bottom: 2em;
+    > div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        * {
+            margin: 1em;
+        }
+    }
+}
+.modal-img {
+    width: 200px;
+    height: 200px   ;
+    border: 1px solid $dark-green;
+    margin-right: 2em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.modal-text {
+    display: block;
+    margin-top: 1em;
+}
+.listing {
+    text-align: center;
+    h1 {
+        @include font(20px);
+        margin-top: 2em;
+        color: $dark-green;
+        text-shadow: 1px 1px $platinum;
+        text-align: center;
+        display: inline-block;
+    }
+    > div > .red-btn {
+        position: absolute;
+        right: 5.5em;
+        z-index: 1;
+    }
+    ul {
+        @include center(column);
+        padding-top: 2em;
+        background-color: lighten($pale-grey, 3%);
+        text-align: left;
+    }
+    #search-item {
+        @include font;
+        display: block;
+        width: 20em;
+        height: 1.5em;
+        padding: 0.25em 0.75em;
+        margin: 2em auto 0;
+    }
+}
+.list-item-container {
+    display: flex;
+    width: 42em;
+    height: 10em;
+    padding: 2em;
+    border: 2px solid $platinum;
+    margin-bottom: 1em;
+    background-color: $white;
+    &:hover {
+        border-color: lighten($light-grey, 13%);
+    }
+    @include transition(border-color, 0.5s, linear);
+}
+.list-item-img {
+    @include center;
+    width: 10em;
+    height: 100%;
+    border: 1px solid $platinum;
+    background-color: lighten($pale-grey, 3%);
+    margin-right: 1.5em;
+}
+.list-item-pic {
+    width: 10em;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 1.5em;
+}
+.list-item-description {
+    display: flex;
+    flex-direction: column;
+    color: darken($light-grey, 15%);
+    span {
+        margin-bottom: 1.5em;
+    }
+}
+.list-item-title {
+    @include font(20px);
+    margin-top: 0.5em;
+    color: $blue-grey;
+}
+.item-detail-container {
+    flex-direction: column;
+    border: none;
+    padding: 5em 7.5em 0;
+    background-color: lighten($pale-grey, 3%);
+    > div {
+        display: flex;
+    }
+    .list-item-img {
+        background-color: $white;
+        width: 225px;
+        height: 225px;
+    }
+    .list-item-detail {
+        margin-top: 3em;
+    }
+    .list-item-title {
+        display: inline-block;
+        width: 15.75em;
+    }
+    .list-item-description {
+        margin-left: 3em;
+        * {
+            margin-bottom: 1.5em;
+        }
+        div {
+            display: inline-block;
+        }
+    }
+    input {
+        @include font;
+        width: 3.75em;
+        height: 1.75em;
+        padding: 0.25em;
+    }
+    .blue-btn, .red-btn {
+        margin-top: 0;
+    }
+    #stock-msg {
+        color: $light-grey;
+    }
+}

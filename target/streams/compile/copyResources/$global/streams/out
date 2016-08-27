@@ -1,0 +1,8 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/application.conf,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/evolutions,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/logback.xml,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/openshift.conf,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/openshift.conf)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/routes,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/evolutions/default,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/Users/yixinsun/Desktop/yard-sale-helper/conf/evolutions/default/1.sql,/Users/yixinsun/Desktop/yard-sale-helper/target/scala-2.11/classes/evolutions/default/1.sql)[0m
